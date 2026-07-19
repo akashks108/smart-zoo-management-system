@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+    <h2>Animal Management</h2>
+
+    <a href="{% url 'add_animal' %}" class="add-btn">
+        + Add Animal
+    </a>
+</div>
+<div class="search-box">
+
+    <form method="GET">
+
+        <input
+            type="search"
+            name="search"
+            placeholder="Search by name, species, category..."
+            value="{{ search }}"
+        >
+
+        <button type="submit" class="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+
+    </form>
+
+</div>
+
+<table class="animal-table">
+
+    <thead>
+
+        <tr>
+
+            <th>Image</th>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Category</th>
+            <th>Diet</th>
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+{% if animals %}
+
+    {% for animal in animals %}
+
+    <tr>
+
+        <td>
+            {% if animal.image %}
+                <img src="{{ animal.image.url }}" width="70">
+            {% else %}
+                No Image
+            {% endif %}
+        </td>
+
+        <td>{{ animal.name }}</td>
+        <td>{{ animal.species }}</td>
+        <td>{{ animal.category }}</td>
+        <td>{{ animal.diet }}</td>
+
+        <td class="action-buttons">
+            <a href="{% url 'edit_animal' animal.id %}" class="edit-btn">
+                <i class="fa-solid fa-pen"></i> Edit
+            </a>
+
+            <a href="{% url 'delete_animal' animal.id %}" class="delete-btn">
+                <i class="fa-solid fa-trash"></i> Delete
+            </a>
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+{% else %}
+
+<tr>
+    <td colspan="6" class="no-data">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        No animals found.
+    </td>
+</tr>
+
+{% endif %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

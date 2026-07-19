@@ -1,0 +1,160 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo Management System</title>
+
+     <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+
+
+<body>
+
+    <header class="header">
+        <h1>Zoo Management System</h1>
+    </header>
+
+    <nav class="navbar">
+        <a href="/dashboard/">
+        <i class="fa-solid fa-gauge"></i>
+        Dashboard
+        </a>
+
+        <a href="{% url 'animal_list' %}">
+        <i class="fa-solid fa-paw"></i>
+        Animals
+        </a>
+        
+        <a href="{% url 'staff_list' %}">
+        <i class="fa-solid fa-users"></i>
+        Staff
+        </a>
+
+        
+        <a href="#">
+        <i class="fa-solid fa-ticket"></i>
+        Tickets
+        </a>
+        <a href="#">
+        <i class="fa-solid fa-comments"></i>
+        Feedback
+        </a>
+        <a href="#">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+        </a>
+    </nav>
+
+{% if messages %}
+<div class="toast-container">
+
+    {% for message in messages %}
+
+    <div class="
+    toast
+    {% if message.tags == 'success' %}
+    toast-success
+    {% elif message.tags == 'error' %}
+    toast-error
+    {% else %}
+    toast-info
+    {% endif %}
+    ">
+
+        <div class="toast-icon">
+            {% if message.tags == "success" %}
+                <i class="fa-solid fa-circle-check"></i>
+            {% elif message.tags == "error" %}
+                <i class="fa-solid fa-circle-xmark"></i>
+            {% else %}
+                <i class="fa-solid fa-circle-info"></i>
+            {% endif %}
+        </div>
+
+        <div class="toast-content">
+
+            <div class="toast-title">
+                {% if message.tags == "success" %}
+                    Success
+                {% elif message.tags == "error" %}
+                    Error
+                {% else %}
+                    Information
+                {% endif %}
+            </div>
+
+            <div class="toast-message">
+                {{ message }}
+            </div>
+
+        </div>
+
+        <button type="button" class="toast-close">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+{% endif %}
+    
+
+    <div class="container">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const toasts = document.querySelectorAll(".toast");
+
+
+    toasts.forEach(function(toast) {
+
+        // Close automatically after 3 seconds
+        setTimeout(function() {
+
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(100%)";
+
+            setTimeout(function(){
+                toast.remove();
+            },500);
+
+        },3000);
+
+        // Close when X is clicked
+        toast.querySelector(".toast-close").addEventListener("click", function(){
+
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(100%)";
+
+            setTimeout(function(){
+                toast.remove();
+            },500);
+
+        });
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

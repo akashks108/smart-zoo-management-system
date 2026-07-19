@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>Staff Management</h2>
+    
+
+    <a href="{% url 'add_staff' %}" class="add-btn">
+    + Add Staff
+    </a>
+
+</div>
+
+
+<div class="search-box">
+
+    <form method="GET">
+
+        <input
+            type="search"
+            name="search"
+            placeholder="Search by name, department, designation..."
+            value="{{ search }}"
+        >
+
+        <button type="submit" class="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Search
+        </button>
+
+        
+
+    </form>
+
+</div>
+
+
+<table class="animal-table">
+
+    <thead>
+
+        <tr>
+
+            <th>Name</th>
+            <th>Username</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% if staff %}
+
+        {% for member in staff %}
+
+
+            <tr>
+
+            <td>{{ member.user.get_full_name }}</td>
+
+            <td>{{ member.user.username }}</td>
+
+            <td>{{ member.designation }}</td>
+
+            <td>{{ member.department }}</td>
+
+            <td>
+
+                <a href="{% url 'edit_staff' member.id %}" class="edit-btn">
+                <i class="fa-solid fa-pen"></i> Edit
+                </a>
+
+                <a href="{% url 'delete_staff' member.id %}" class="delete-btn">
+                <i class="fa-solid fa-trash"></i> Delete
+                </a>
+
+            </td>
+
+            </tr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <tr>
+
+            <td colspan="5">
+
+                No staff found.
+
+            </td>
+
+        </tr>
+
+    {% endif %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>Zoo Management System</title>
+    <link rel="stylesheet"href="{% static 'animals/style.css' %}">
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Zoo Management System</h1>
+    </div>
+
+    <div class="content">
+
+        <table border="1">
+
+            <tr>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Age</th>
+                <th>Habitat</th>
+                <th>Image</th>
+            </tr>
+
+            {% for animal in animals %}
+            <tr>
+                <td>{{ animal.name }}</td>
+                <td>{{ animal.species }}</td>
+                <td>{{ animal.age }}</td>
+                <td>{{ animal.habitat }}</td>
+                <td>
+                {% if animal.image %}
+                <img src="{{ animal.image.url }}"
+                    alt="{{ animal.name }}"
+                    width="120"
+                    height="90"
+                    style="object-fit: cover; border-radius:8px;">
+                {% else %}
+                 No Image
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>
