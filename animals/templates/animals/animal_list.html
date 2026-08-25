@@ -71,6 +71,10 @@
                 <i class="fa-solid fa-pen"></i> Edit
             </a>
 
+            <a href="{% url 'health_record_list' animal.id %}" class="health-btn">
+                <i class="fa-solid fa-heart-pulse"></i> Health
+            </a>
+
             <a href="{% url 'delete_animal' animal.id %}" class="delete-btn">
                 <i class="fa-solid fa-trash"></i> Delete
             </a>

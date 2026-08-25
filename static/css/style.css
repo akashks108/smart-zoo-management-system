@@ -245,6 +245,20 @@ body{
     transform:translateY(-2px);
 }
 
+.health-btn{
+    background:#28a745;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+    font-size:14px;
+    margin:0 3px;
+}
+
+.health-btn:hover{
+    background:#218838;
+}
+
 /* ===========================
    Search Box
 =========================== */
@@ -451,4 +465,346 @@ body{
 .toast-close:hover{
 
     color:#000;
+}
+
+
+/* =========================================
+   Login Page
+========================================= */
+
+.login-wrapper{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    background:
+        linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+        url("../images/login-bg.png");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.login-card{
+
+    width:450px;
+
+    margin-left:40%;
+
+    background:#fff;
+
+    padding:50px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
+
+    transition:.3s ease;
+
+    animation:fadeInUp .8s ease;
+}
+
+.login-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 25px 60px rgba(0,0,0,.20);
+}
+
+.login-logo{
+
+    width:90px;
+    height:90px;
+
+    margin:auto auto 20px;
+
+    border-radius:50%;
+
+    background:#1B5E20;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#fff;
+
+    font-size:40px;
+}
+
+.login-card h1{
+
+    color:#1B5E20;
+
+    margin-bottom:8px;
+}
+
+.login-subtitle{
+
+    color:#777;
+
+    margin-bottom:30px;
+}
+
+.input-group{
+
+    position:relative;
+
+    margin-bottom:20px;
+}
+
+.input-group i{
+
+    position:absolute;
+
+    left:15px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#777;
+}
+
+.input-group input{
+
+    width:100%;
+
+    padding:12px 45px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.input-group input:focus{
+
+    border-color:#1B5E20;
+
+    outline:none;
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    right:12px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    color:#777;
+}
+
+.login-btn{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#1B5E20;
+
+    color:#fff;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.login-btn:hover{
+
+    background:#2E7D32;
+}
+
+.login-footer{
+
+    margin-top:25px;
+
+    color:#888;
+
+    font-size:14px;
+}
+
+/* =========================================
+   Welcome Section
+========================================= */
+
+.welcome-section{
+
+    position:absolute;
+
+    left:8%;
+
+    top:18%;
+
+    width:420px;
+
+    color:#fff;
+
+    text-align:left;
+
+    animation:fadeInLeft 1s ease;
+}
+
+.welcome-small{
+
+    font-size:26px;
+
+    font-weight:300;
+
+    margin-bottom:10px;
+
+    letter-spacing:2px;
+}
+
+.welcome-title{
+
+    font-size:54px;
+
+    font-weight:700;
+
+    line-height:1.15;
+
+    margin-bottom:20px;
+
+    text-shadow:0 5px 15px rgba(0,0,0,.4);
+}
+
+.welcome-desc{
+
+    font-size:20px;
+
+    line-height:1.7;
+
+    color:rgba(255,255,255,.9);
+}
+
+@keyframes fadeInLeft{
+
+    from{
+
+        opacity:0;
+        transform:translateX(-40px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0);
+
+    }
+
+}
+
+.animal-save-btn{
+    display: block;
+    width: 180px;
+    margin: 20px auto 0;
+}
+
+/* =========================================
+   Health Record Page
+========================================= */
+
+.animal-info-card{
+    display:flex;
+    align-items:center;
+    gap:30px;
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.12);
+    margin-bottom:30px;
+}
+
+.animal-info-card img{
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+    border:3px solid #1B5E20;
+}
+
+.animal-details{
+    flex:1;
+}
+
+.animal-details h2{
+    color:#1B5E20;
+    font-size:34px;
+    margin-bottom:20px;
+}
+
+.animal-details p{
+    font-size:18px;
+    margin:10px 0;
+}
+
+.animal-details strong{
+    color:#1B5E20;
+    display:inline-block;
+    width:160px;
+}
+
+/* ===== Feeding Button ========*/
+
+.feeding-btn {
+    background: #1976d2;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 0 3px;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.feeding-btn:hover {
+    background: #125aa0;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+/*=====Health Button ====== */
+.health-btn {
+    background: #28a745;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 0 3px;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.health-btn:hover {
+    background: #1e7e34;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }

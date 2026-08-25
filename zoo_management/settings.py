@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'accounts',
     'dashboard',
     'staff',
+    'staff_dashboard',
+    'health_records',
+    "feeding",
 ]
 
 MIDDLEWARE = [

@@ -18,6 +18,7 @@ class AnimalForm(forms.ModelForm):
             "diet",
             "description",
             "image",
+            "assigned_staff",
         ]
 
         widgets = {
@@ -44,6 +45,10 @@ class AnimalForm(forms.ModelForm):
             "image": forms.FileInput(attrs={
                 "class": "form-control",
                 "id": "image-input"
+            }),
+
+            "assigned_staff": forms.Select(attrs={
+            "class": "form-control"
             }),
 
         }

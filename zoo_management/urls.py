@@ -28,6 +28,10 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("dashboard/", include("dashboard.urls")),
     path("staff/", include("staff.urls")),
+    path("staff-dashboard/", include("staff_dashboard.urls")),
+    path("staff-dashboard/", include("staff_dashboard.urls")),
+    path("health-records/", include("health_records.urls")),
+    path("feeding/",include("feeding.urls")),
 ]
 
 if settings.DEBUG:

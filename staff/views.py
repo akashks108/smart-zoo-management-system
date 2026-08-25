@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib import messages
@@ -64,6 +65,10 @@ def add_staff(request):
 
                 department=form.cleaned_data["department"]
 
+            )
+            messages.success(
+                request,
+                f"{user.first_name} {user.last_name} added successfully."
             )
 
             return redirect("staff_list")
@@ -155,3 +160,55 @@ def delete_staff(request, id):
             "staff": staff
         }
     )
+
+def staff_login(request):
+
+    if request.user.is_authenticated:
+        return redirect("staff_dashboard")
+
+    if request.method == "POST":
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+
+        if user is not None:
+
+            # Check whether this user is a staff member
+            if Staff.objects.filter(user=user).exists():
+
+                login(request, user)
+
+                messages.success(
+                    request,
+                    f"Welcome, {user.first_name}!"
+                )
+
+                return redirect("staff_dashboard")
+
+            else:
+
+                messages.error(
+                    request,
+                    "You are not authorized as staff."
+                )
+
+        else:
+
+            messages.error(
+                request,
+                "Invalid username or password."
+            )
+
+    return render(request, "staff/login.html")
+
+def staff_logout(request):
+
+    logout(request)
+
+    return redirect("login")

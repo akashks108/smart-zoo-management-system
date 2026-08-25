@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+    <h2>My Assigned Animals</h2>
+</div>
+
+<table class="animal-table">
+
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for animal in assigned_animals %}
+
+        <tr>
+
+            <td>
+                {% if animal.image %}
+                    <img src="{{ animal.image.url }}" width="80">
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+
+            <td>{{ animal.name }}</td>
+
+            <td>{{ animal.species }}</td>
+
+            <td>
+
+                <a href="{% url 'health_record_list' animal.id %}" class="health-btn">
+                    Health
+                </a>
+
+                <a href="{% url 'feeding_schedule_list' animal.id %}"
+                    class="feeding-btn">
+
+                    <i class="fa-solid fa-utensils"></i>
+                    Feeding
+
+                </a>
+
+                <a href="#" class="add-btn">
+                    Report
+                </a>
+
+            </td>
+
+        </tr>
+
+    {% empty %}
+
+        <tr>
+            <td colspan="4" class="no-data">
+                No animals assigned.
+            </td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

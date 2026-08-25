@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Add Feeding Schedule</h2>
+
+    <p>
+        <strong>Animal:</strong> {{ animal.name }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div style="margin-top: 20px;">
+
+            <button type="submit" class="save-btn">
+                <i class="fa-solid fa-save"></i>
+                Save Feeding Schedule
+            </button>
+
+            <a href="{% url 'feeding_schedule_list' animal.id %}"
+               class="add-btn">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

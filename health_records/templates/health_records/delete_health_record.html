@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Delete Health Record</h2>
+
+    <p>
+        Are you sure you want to delete this health record?
+    </p>
+
+    <div style="margin: 20px 0;">
+
+        <p>
+            <strong>Animal:</strong>
+            {{ animal.name }}
+        </p>
+
+        <p>
+            <strong>Diagnosis:</strong>
+            {{ record.diagnosis }}
+        </p>
+
+        <p>
+            <strong>Treatment:</strong>
+            {{ record.treatment }}
+        </p>
+
+        <p>
+            <strong>Veterinarian:</strong>
+            {{ record.veterinarian }}
+        </p>
+
+        {% if record.remarks %}
+        <p>
+            <strong>Remarks:</strong>
+            {{ record.remarks }}
+        </p>
+        {% endif %}
+
+    </div>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <a href="{% url 'health_record_list' animal.id %}"
+           class="add-btn">
+            Cancel
+        </a>
+
+        <button type="submit"
+                class="delete-btn"
+                style="padding: 12px 22px; font-size: 15px;">
+            <i class="fa-solid fa-trash"></i>
+            Delete Health Record
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

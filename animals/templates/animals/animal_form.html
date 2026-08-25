@@ -9,58 +9,65 @@
     <form method="POST" enctype="multipart/form-data">
 
         {% csrf_token %}
-        <div class="form-grid">
+    <div class="form-grid">
+            <div class="left-column">
+                <div class="form-group">
+                    <label>Name</label>
+                    {{ form.name }}
+                </div>
 
-    <div class="left-column">
+                <div class="form-group">
+                    <label>Species</label>
+                    {{ form.species }}
+                </div>
 
-        <div class="form-group">
-    <label>Name</label>
-    {{ form.name }}
-</div>
+                <div class="form-group">
+                    <label>Scientific Name</label>
+                    {{ form.scientific_name }}
+                </div>
 
-<div class="form-group">
-    <label>Species</label>
-    {{ form.species }}
-</div>
+                <div class="form-group">
+                    <label>Age</label>
+                    {{ form.age }}
+                </div>
 
-<div class="form-group">
-    <label>Scientific Name</label>
-    {{ form.scientific_name }}
-</div>
+                <div class="form-group">
+                    <label>Habitat</label>
+                    {{ form.habitat }}
+                </div>
 
-<div class="form-group">
-    <label>Age</label>
-    {{ form.age }}
-</div>
+                <div class="form-group">
+                    <label>Assigned Staff</label>
+                    {{ form.assigned_staff }}
+                </div>
+            
 
-<div class="form-group">
-    <label>Habitat</label>
-    {{ form.habitat }}
-</div>
+                <div class="form-group">
+                    <label>Category</label>
+                    {{ form.category }}
+                </div>
 
-<div class="form-group">
-    <label>Category</label>
-    {{ form.category }}
-</div>
+                <div class="form-group">
+                    <label>Diet</label>
+                    {{ form.diet }}
+                </div>
 
-<div class="form-group">
-    <label>Diet</label>
-    {{ form.diet }}
-</div>
+                <div class="form-group">
+                    <label>Description</label>
+                    {{ form.description }}
+                </div>
 
-<div class="form-group">
-    <label>Description</label>
-    {{ form.description }}
-</div>
+                <div class="form-group">
+                    <label>Image</label>
+                    {{ form.image }}
+                </div>
 
-<div class="form-group">
-    <label>Image</label>
-    {{ form.image }}
-</div>
-</div>
+                <button type="submit" class="save-btn animal-save-btn">
+                    {{ button_text }}
+                </button>
 
+    </div>
 <div class="right-column">
-
     <div class="image-preview">
 
         <h3>Image Preview</h3>
@@ -77,11 +84,6 @@
 </div>
 
 </div>
-
-        <button type="submit" class="save-btn">
-           {{ button_text }}
-        </button>
-
     </form>
 
 </div>

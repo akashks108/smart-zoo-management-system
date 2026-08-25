@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>
+        Health Records - {{ animal.name }}
+    </h2>
+
+</div>
+
+<div class="animal-info-card">
+
+    {% if animal.image %}
+        <img src="{{ animal.image.url }}" alt="{{ animal.name }}">
+    {% endif %}
+
+    <div class="animal-details">
+
+        <h2>{{ animal.name }}</h2>
+
+        <p><strong>Species:</strong> {{ animal.species }}</p>
+
+        <p><strong>Scientific Name:</strong> {{ animal.scientific_name }}</p>
+
+        <p><strong>Category:</strong> {{ animal.category }}</p>
+
+        <p><strong>Diet:</strong> {{ animal.diet }}</p>
+
+        <p><strong>Habitat:</strong> {{ animal.habitat }}</p>
+
+        {% if animal.assigned_staff %}
+        <p>
+            <strong>Assigned Staff:</strong>
+            {{ animal.assigned_staff.user.get_full_name|default:animal.assigned_staff.user.username }}
+        </p>
+        <p>
+            <strong>Health Status:</strong>
+            {{ animal.get_health_status_display }}
+        </p>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% if request.user.staff %}
+    <div style="margin-bottom: 15px;">
+        <a href="{% url 'add_health_record' animal.id %}" class="add-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Health Record
+        </a>
+    </div>
+{% endif %}
+
+
+<table class="animal-table">
+
+    <thead>
+
+        <tr>
+            <th>Check-up Date</th>
+            <th>Diagnosis</th>
+            <th>Treatment</th>
+            <th>Veterinarian</th>
+            <th>Remarks</th>
+            <th>Actions</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for record in health_records %}
+
+        <tr>
+
+            <td>{{ record.checkup_date }}</td>
+            <td>{{ record.diagnosis }}</td>
+            <td>{{ record.treatment }}</td>
+            <td>{{ record.veterinarian }}</td>
+            <td>{{ record.remarks }}</td>
+            <td class="action-buttons">
+
+                {% if request.user.staff %}
+
+                    <a href="{% url 'edit_health_record' record.id %}"
+                        class="edit-btn"
+                        style="padding: 10px 18px; font-size: 15px;">
+                        <i class="fa-solid fa-pen"></i>
+                        Edit
+                    </a>
+                   <a href="{% url 'delete_health_record' record.id %}"
+                        class="delete-btn"
+                        style="padding: 10px 18px; font-size: 15px;">
+
+                        <i class="fa-solid fa-trash"></i>
+                        Delete
+
+                    </a>
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    {% empty %}
+
+        <tr>
+
+            <td colspan="5" class="no-data">
+                No health records found for this animal.
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+<br>
+
+{% if user.is_superuser %}
+
+    <a href="{% url 'animal_list' %}" class="add-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Animals
+    </a>
+
+{% else %}
+
+    <a href="{% url 'my_animals' %}" class="add-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Animals
+    </a>
+
+{% endif %}
+
+{% endblock %}

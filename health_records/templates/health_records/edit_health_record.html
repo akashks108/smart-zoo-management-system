@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Edit Health Record - {{ animal.name }}</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="save-btn">
+            <i class="fa-solid fa-save"></i>
+            Update Health Record
+        </button>
+
+        <a href="{% url 'health_record_list' animal.id %}"
+           class="add-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

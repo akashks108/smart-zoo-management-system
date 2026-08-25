@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Staff Dashboard</h2>
+
+<p>
+    Welcome,
+    <strong>{{ staff.user.get_full_name|default:staff.user.username }}</strong>
+</p>
+
+<p>
+    {{ staff.designation }} |
+    {{ staff.department }}
+</p>
+<div class="cards">
+
+    <div class="card">
+        <h3>Assigned Animals</h3>
+        <h1>{{ total_animals }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Today's Feeding</h3>
+        <h1>0</h1>
+    </div>
+
+    <div class="card">
+        <h3>Health Checks</h3>
+        <h1>0</h1>
+    </div>
+
+</div>
+
+{% endblock %}
