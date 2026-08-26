@@ -1,0 +1,274 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ animal.name }} | Zoo</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+      href="{% static 'visitors/css/visitor.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-paw"></i>
+        ZOO
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'animal_gallery' %}">
+            Home
+        </a>
+
+        <a href="{% url 'animal_gallery' %}">
+            Animals
+        </a>
+
+        <a href="#">
+            Tickets
+        </a>
+
+        <a href="#">
+            About
+        </a>
+
+         {% if user.is_authenticated %}
+
+    <a href="{% url 'logout' %}" class="login-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+    </a>
+
+{% else %}
+
+    <a href="{% url 'login' %}" class="login-btn">
+        <i class="fa-solid fa-user"></i>
+        Login
+    </a>
+
+{% endif %}
+
+    </div>
+
+</nav>
+
+
+<!-- Content -->
+
+<div class="detail-container">
+
+
+    <a href="{% url 'animal_gallery' %}"
+       class="back-btn">
+
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Animals
+
+    </a>
+
+
+    <div class="animal-detail-card">
+
+
+        <!-- Animal Image -->
+
+        <div class="animal-detail-image">
+
+            {% if animal.image %}
+
+                <img
+                    src="{{ animal.image.url }}"
+                    alt="{{ animal.name }}"
+                >
+
+            {% else %}
+
+                <div class="no-image">
+
+                    <i class="fa-solid fa-paw fa-4x"></i>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Animal Information -->
+
+        <div class="animal-detail-info">
+
+
+            <h1>
+                {{ animal.name }}
+            </h1>
+
+
+            <div class="species-name">
+
+                {{ animal.species }}
+
+            </div>
+
+
+            <div class="info-grid">
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        <i class="fa-solid fa-paw"></i>
+                        Category
+                    </div>
+
+                    <div class="info-value">
+                        {{ animal.category }}
+                    </div>
+
+                </div>
+                <div class="info-item">
+
+                <div class="info-label">
+                    <i class="fa-solid fa-dna"></i>
+                    Scientific Name
+                </div>
+
+                <div class="info-value">
+                    {{ animal.scientific_name }}
+                </div>
+
+
+</div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        <i class="fa-solid fa-leaf"></i>
+                        Diet
+                    </div>
+
+                    <div class="info-value">
+                        {{ animal.diet }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        <i class="fa-solid fa-tree"></i>
+                        Habitat
+                    </div>
+
+                    <div class="info-value">
+                        {{ animal.habitat }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        Health Status
+                    </div>
+
+                    <div class="info-value">
+                        {{ animal.get_health_status_display }}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="description">
+
+                <h2>
+                    About {{ animal.name }}
+                </h2>
+
+                <p>
+
+                    {% if animal.description %}
+
+                        {{ animal.description }}
+
+                    {% else %}
+
+                        Learn more about {{ animal.name }}
+                        when you visit our zoo.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <!-- Ticket -->
+
+            <div class="ticket-section">
+
+                <div>
+
+                    <h3>
+                        Want to see {{ animal.name }}?
+                    </h3>
+
+                    <p>
+                        Plan your visit and explore our zoo.
+                    </p>
+
+                </div>
+
+
+                <a href="#"
+                   class="ticket-btn">
+
+                    <i class="fa-solid fa-ticket"></i>
+                    Book a Visit
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Zoo | Explore Animals</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet"
+      href="{% static 'visitors/css/visitor.css' %}">
+
+    
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-paw"></i>
+        ZOO
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'visitor_home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'animal_gallery' %}">
+            Animals
+        </a>
+
+        <a href="#">
+            Tickets
+        </a>
+
+        <a href="#">
+            About
+        </a>
+
+        {% if user.is_authenticated %}
+
+            <a href="{% url 'logout' %}" class="login-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="{% url 'login' %}" class="login-btn">
+                <i class="fa-solid fa-user"></i>
+                Login
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+<!-- Hero -->
+
+<section class="hero">
+
+    <h1>
+        Explore Our Animals
+    </h1>
+
+    <p>
+        Discover the amazing animals that call our zoo home.
+        Explore their world and learn something new.
+    </p>
+
+</section>
+
+
+<!-- Search -->
+
+<div class="search-container">
+
+    <form method="GET" class="search-box">
+
+        <input
+            type="search"
+            name="search"
+            placeholder="Search animals..."
+            value="{{ search }}"
+        >
+
+
+        <select name="category">
+
+            <option value="">
+                All Categories
+            </option>
+
+            {% for cat in categories %}
+
+                <option
+                    value="{{ cat }}"
+                    {% if category == cat %}selected{% endif %}
+                >
+                    {{ cat }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <button type="submit">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+        </button>
+
+    </form>
+
+</div>
+<!-- Animals -->
+
+<div class="animal-grid">
+
+    {% for animal in animals %}
+
+        <a href="{% url 'animal_detail' animal.id %}"
+           class="animal-card">
+
+            <div class="animal-image">
+
+                {% if animal.image %}
+
+                    <img
+                        src="{{ animal.image.url }}"
+                        alt="{{ animal.name }}"
+                    >
+
+                {% else %}
+
+                    <div class="no-image">
+
+                        <i class="fa-solid fa-paw fa-3x"></i>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="animal-info">
+
+                <h2>
+                    {{ animal.name }}
+                </h2>
+
+                <p>
+                    {{ animal.species }}
+                </p>
+
+                <span class="animal-category">
+                    {{ animal.category }}
+                </span>
+
+                <div class="explore">
+
+                    Explore Animal
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    {% empty %}
+
+        <div class="no-animals">
+
+            <i class="fa-solid fa-paw fa-2x"></i>
+
+            <h2>
+                No animals found
+            </h2>
+
+            <p>
+                There are currently no animals available.
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+</body>
+
+</html>

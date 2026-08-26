@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from animals.models import Animal
+from staff.models import Staff
 
 
 class HealthRecord(models.Model):
@@ -23,6 +24,14 @@ class HealthRecord(models.Model):
 
     veterinarian = models.CharField(
         max_length=100
+    )
+    
+    veterinarian_staff = models.ForeignKey(
+    Staff,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="health_records"
     )
 
     remarks = models.TextField(

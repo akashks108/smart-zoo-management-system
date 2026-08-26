@@ -22,16 +22,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("", RedirectView.as_view(url="/accounts/login/", permanent=False)),
+    path("", RedirectView.as_view(url="/visitors/", permanent=False)),
+
     path('admin/', admin.site.urls),
-    path('animals/',include('animals.urls')),
+    path('animals/', include('animals.urls')),
     path("accounts/", include("accounts.urls")),
     path("dashboard/", include("dashboard.urls")),
     path("staff/", include("staff.urls")),
     path("staff-dashboard/", include("staff_dashboard.urls")),
-    path("staff-dashboard/", include("staff_dashboard.urls")),
     path("health-records/", include("health_records.urls")),
-    path("feeding/",include("feeding.urls")),
+    path("feeding/", include("feeding.urls")),
+    path("visitors/", include("visitors.urls")),
 ]
 
 if settings.DEBUG:

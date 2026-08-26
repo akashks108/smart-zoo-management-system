@@ -75,6 +75,10 @@
                 <i class="fa-solid fa-heart-pulse"></i> Health
             </a>
 
+            <a href="{% url 'feeding_schedule_list' animal.id %}" class="feeding-btn">
+                <i class="fa-solid fa-utensils"></i> Feeding
+            </a>
+
             <a href="{% url 'delete_animal' animal.id %}" class="delete-btn">
                 <i class="fa-solid fa-trash"></i> Delete
             </a>

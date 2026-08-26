@@ -808,3 +808,97 @@ body{
     transform: translateY(-2px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
+
+/* Edit Profile */
+
+.profile-edit-container {
+    max-width: 1050px;
+    margin: 30px auto;
+    padding: 40px;
+}
+
+.profile-edit-container h2 {
+    color: #176b24;
+    margin-bottom: 35px;
+    font-size: 28px;
+}
+
+.profile-edit-container .form-group {
+    margin-bottom: 28px;
+}
+
+.profile-edit-container label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.profile-edit-container input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+.profile-edit-container input:focus {
+    outline: none;
+    border-color: #1b7028;
+    box-shadow: 0 0 0 2px rgba(27, 112, 40, 0.1);
+}
+
+
+/* Password Section */
+
+.password-section {
+    border-top: 1px solid #ccc;
+    margin-top: 40px;
+    padding-top: 32px;
+}
+
+.password-section h3 {
+    color: #176b24;
+    font-size: 24px;
+    margin-bottom: 28px;
+}
+
+
+/* Buttons */
+
+.profile-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+    align-items: center;
+}
+
+.profile-actions .save-btn {
+    padding: 13px 24px;
+    font-size: 15px;
+}
+
+.cancel-btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border: 2px solid #176b24;
+    border-radius: 6px;
+    color: #176b24;
+    background: white;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.cancel-btn:hover {
+    background: #176b24;
+    color: white;
+}
+
+
+/* Error Messages */
+
+.error-message {
+    color: #dc3545;
+    margin-top: 7px;
+    font-size: 13px;
+}

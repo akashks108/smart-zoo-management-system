@@ -1,5 +1,6 @@
 from django import forms
 from .models import HealthRecord
+from staff.models import Staff
 
 
 class HealthRecordForm(forms.ModelForm):
@@ -11,7 +12,7 @@ class HealthRecordForm(forms.ModelForm):
             "diagnosis",
             "treatment",
             "checkup_date",
-            "veterinarian",
+            "veterinarian_staff",
             "remarks",
         ]
 
@@ -34,10 +35,8 @@ class HealthRecordForm(forms.ModelForm):
                 }
             ),
 
-            "veterinarian": forms.TextInput(
-                attrs={
-                    "placeholder": "Veterinarian name"
-                }
+            "veterinarian_staff": forms.Select(
+                attrs={}
             ),
 
             "remarks": forms.Textarea(
@@ -47,3 +46,14 @@ class HealthRecordForm(forms.ModelForm):
                 }
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self.fields["veterinarian_staff"].queryset = Staff.objects.filter(
+            designation="Veterinarian"
+        )
+
+        self.fields["veterinarian_staff"].label = "Veterinarian"
+        self.fields["veterinarian_staff"].empty_label = "Select Veterinarian"

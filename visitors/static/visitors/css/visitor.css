@@ -1,0 +1,1676 @@
+
+        /*=================== Animal Gallery ==========================*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #eef7ef;
+
+            color: #222;
+        }
+
+/* ========================= */
+/* Navigation Bar */
+/* ========================= */
+
+.navbar {
+    height: 72px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    box-shadow:
+        0 3px 15px rgba(23, 107, 36, 0.08);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+}
+
+
+/* Logo */
+
+.logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 27px;
+
+    font-weight: 700;
+
+    color: #176b24;
+
+    letter-spacing: 0.5px;
+}
+
+
+.logo i {
+    font-size: 23px;
+}
+
+
+/* Navigation Links */
+
+.nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.nav-links a {
+    position: relative;
+
+    text-decoration: none;
+
+    color: #333;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    padding: 12px 16px;
+
+    border-radius: 8px;
+
+    transition:
+        color 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* Hover */
+
+.nav-links a:hover {
+    color: #176b24;
+
+    background: #eaf5eb;
+}
+
+
+/* Active / Current Page */
+
+.nav-links a.active {
+    color: #176b24;
+
+    background: #eaf5eb;
+}
+
+
+/* Login / Logout Button */
+
+.login-btn {
+    background: #176b24;
+
+    color: white !important;
+
+    padding: 11px 19px !important;
+
+    border-radius: 8px !important;
+
+    margin-left: 8px;
+
+    box-shadow:
+        0 4px 10px rgba(23, 107, 36, 0.18);
+}
+
+
+.login-btn:hover {
+    background: #125a1e !important;
+
+    color: white !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 15px rgba(23, 107, 36, 0.25);
+}
+
+
+/* Icons inside navigation */
+
+.nav-links a i {
+    margin-right: 6px;
+}
+        /* Hero */
+
+        .hero {
+            text-align: center;
+
+            padding: 70px 20px 50px;
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            color: #176b24;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 17px;
+
+            color: #5f6b62;
+
+            max-width: 700px;
+
+            margin: auto;
+
+            line-height: 1.7;
+        }
+
+        /* Search */
+
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+
+        .search-box {
+            display: flex;
+
+            background: #ffffff;
+
+            border-radius: 50px;
+
+            padding: 6px;
+
+            box-shadow:
+                0 8px 25px rgba(23, 107, 36, 0.10);
+
+            border: 1px solid #e3eee4;
+        }
+        .search-box select {
+            border: none;
+            outline: none;
+            background: #f5f8f4;
+            color: #333;
+
+            padding: 0 14px;
+            height: 38px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+            cursor: pointer;
+
+            margin-right: 5px;
+        }
+
+        .search-box select:hover {
+            background: #eaf3e9;
+        }
+
+        .search-box select:focus {
+            box-shadow: 0 0 0 2px rgba(23, 107, 36, 0.15);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .search-box button {
+            border: none;
+            background: #176b24;
+            color: white;
+            padding: 0 25px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+/* ========================= */
+/* Animal Grid */
+/* ========================= */
+
+.animal-grid {
+    width: 92%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 28px;
+
+    padding-bottom: 80px;
+}
+
+        /* Animal Card */
+
+        .animal-card {
+            background: #ffffff;
+            border: 1px solid #e4eee5;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+            transition: transform 0.35s ease,
+                        box-shadow 0.35s ease;
+        }
+
+        .animal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .animal-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: #e9eee8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .animal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .animal-card:hover .animal-image img {
+            transform: scale(1.08);
+        }
+
+        .no-image {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+
+        .animal-info {
+            padding: 20px;
+        }
+
+        .animal-info h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #176b24;
+        }
+
+        .animal-info p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .animal-category {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 11px;
+            background: #e7f3e8;
+            color: #176b24;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .explore {
+            margin-top: 15px;
+            color: #176b24;
+            font-weight: bold;
+        }
+
+        /* Empty */
+
+        .no-animals {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 60px;
+            color: #777;
+        }
+
+/* ========================= */
+/* Responsive Animal Grid */
+/* ========================= */
+
+@media (max-width: 1100px) {
+
+    .animal-grid {
+        width: 90%;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 24px;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .animal-grid {
+        width: 90%;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .animal-grid {
+        width: 90%;
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+    .animal-image {
+        height: 240px;
+    }
+
+}
+
+/*=================== Animal Detail ==========================*/
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f8f4;
+            color: #222;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #176b24;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #176b24;
+        }
+
+        .login-btn {
+            background: #176b24;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 6px;
+        }
+
+
+        /* Page */
+
+        .detail-container {
+            width: 86%;
+            max-width: 1150px;
+            margin: 55px auto;
+        }
+
+
+        /* Back */
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #176b24;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .back-btn:hover {
+            color: #0d4e18;
+        }
+
+
+        /* Animal Card */
+
+        .animal-detail-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09);
+        }
+
+
+        /* Image */
+
+        .animal-detail-image {
+            width: 100%;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+        }
+
+        .animal-detail-image img {
+            width: 100%;
+
+            height: auto;
+
+            display: block;
+
+            object-fit: contain;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e9eee8;
+            color: #888;
+        }
+
+
+        /* Information */
+
+        .animal-detail-info {
+            padding: 40px 45px 50px;
+        }
+
+        .animal-detail-info h1 {
+            color: #176b24;
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        .species-name {
+            color: #777;
+            font-style: italic;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+
+        /* Information Grid */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(200px, 1fr)
+            );
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .info-item {
+            background: #f5f8f4;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .info-item i {
+            color: #176b24;
+            margin-right: 8px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+
+        /* Description */
+
+        .description {
+            border-top: 1px solid #ddd;
+            padding-top: 30px;
+        }
+
+        .description h2 {
+            color: #176b24;
+            margin-bottom: 15px;
+        }
+
+        .description p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+
+        /* Ticket */
+
+        .ticket-section {
+            margin-top: 35px;
+            padding: 25px;
+            background: #eaf5eb;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .ticket-section h3 {
+            color: #176b24;
+            margin-bottom: 5px;
+        }
+
+        .ticket-btn {
+            background: #176b24;
+            color: white;
+            text-decoration: none;
+            padding: 13px 22px;
+            border-radius: 7px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .ticket-btn:hover {
+            background: #0f5b1b;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a:not(.login-btn) {
+                display: none;
+            }
+
+            .detail-container {
+                width: 92%;
+                margin: 30px auto;
+            }
+
+            .animal-detail-image {
+                height: 300px;
+            }
+
+            .animal-detail-info {
+                padding: 28px 22px 35px;
+            }
+
+            .animal-detail-info h1 {
+                font-size: 32px;
+            }
+
+            .ticket-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+        /* =========================
+   HOME PAGE
+========================= */
+
+.home-hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    padding: 80px 20px;
+    
+background:
+    linear-gradient(
+        rgba(10, 60, 20, 0.35),
+        rgba(10, 60, 20, 0.35)
+    ),
+    url("/static/visitors/images/zoo-hero.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    color: white;
+}
+
+.hero-tag {
+    display: inline-block;
+
+    padding: 8px 16px;
+    margin-bottom: 20px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.hero-tag i {
+    margin-right: 6px;
+}
+
+.hero-content h1 {
+    font-size: 58px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-content h1 span {
+    color: #9be28f;
+}
+
+.hero-content p {
+    max-width: 650px;
+    margin: 0 auto 30px;
+
+    font-size: 19px;
+    line-height: 1.7;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* Hero Buttons */
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 13px 22px;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    transition: 0.3s ease;
+}
+
+.primary-btn {
+    background: white;
+    color: #176b24;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.secondary-btn {
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: white;
+}
+
+.secondary-btn:hover {
+    background: white;
+    color: #176b24;
+}
+
+
+/* Statistics */
+
+.stats-section {
+    width: 86%;
+    max-width: 1100px;
+
+    margin: -45px auto 70px;
+
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+    overflow: hidden;
+}
+
+.stat-card {
+    text-align: center;
+
+    padding: 30px 15px;
+
+    border-right: 1px solid #eeeeee;
+}
+
+.stat-card:last-child {
+    border-right: none;
+}
+
+.stat-card i {
+    font-size: 25px;
+    color: #176b24;
+
+    margin-bottom: 10px;
+}
+
+.stat-card h2 {
+    font-size: 28px;
+    color: #176b24;
+
+    margin-bottom: 5px;
+}
+
+.stat-card p {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* Home Mobile */
+
+@media (max-width: 700px) {
+
+    .home-hero {
+        min-height: 500px;
+        padding: 60px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .stats-section {
+        width: 90%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-card:nth-child(2) {
+        border-right: none;
+    }
+
+    .stat-card:nth-child(-n+2) {
+        border-bottom: 1px solid #eeeeee;
+    }
+
+}
+
+/* ============================= */
+/* About Our Zoo */
+/* ============================= */
+
+.about-section {
+    width: 92%;
+    max-width: 1400px;
+
+    margin: 120px auto 100px;
+
+    display: grid;
+
+    grid-template-columns: 1.05fr 1fr;
+
+    gap: 85px;
+
+    align-items: center;
+}
+
+
+/* Image */
+
+.about-image {
+    height: 500px;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+
+.about-image:hover img {
+    transform: scale(1.05);
+}
+
+
+/* Content */
+
+.about-content {
+    padding: 20px 0;
+}
+
+
+.section-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 15px;
+
+    background: #e7f3e8;
+
+    color: #176b24;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.about-content h2 {
+    margin: 20px 0;
+
+    font-size: 44px;
+
+    line-height: 1.2;
+
+    color: #176b24;
+}
+
+
+.about-content h2 span {
+    color: #7acb7f;
+}
+
+
+.about-content > p {
+    color: #666;
+
+    font-size: 17px;
+
+    line-height: 1.75;
+
+    margin-bottom: 18px;
+
+    max-width: 650px;
+}
+
+
+/* Features */
+
+.about-features {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 28px;
+
+    margin-top: 35px;
+}
+
+
+.about-feature {
+    display: flex;
+
+    gap: 15px;
+
+    align-items: flex-start;
+}
+
+
+.about-feature > i {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #e7f3e8;
+
+    color: #176b24;
+
+    border-radius: 50%;
+
+    font-size: 16px;
+}
+
+
+.about-feature h3 {
+    margin-bottom: 6px;
+
+    color: #176b24;
+
+    font-size: 17px;
+}
+
+
+.about-feature p {
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.55;
+
+    margin: 0;
+}
+
+
+/* ============================= */
+/* About - Tablet */
+/* ============================= */
+
+@media (max-width: 900px) {
+
+    .about-section {
+        width: 90%;
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .about-image {
+        height: 420px;
+    }
+
+}
+
+
+/* ============================= */
+/* About - Mobile */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    .about-section {
+        width: 90%;
+
+        margin: 80px auto;
+    }
+
+    .about-image {
+        height: 320px;
+
+        border-radius: 18px;
+    }
+
+    .about-content h2 {
+        font-size: 32px;
+    }
+
+    .about-content > p {
+        font-size: 15px;
+    }
+
+    .about-features {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+}
+
+/* ============================= */
+/* Plan Your Visit */
+/* ============================= */
+
+.visit-section {
+    width: 92%;
+    max-width: 1400px;
+
+    margin: 120px auto 100px;
+
+    text-align: center;
+}
+
+
+/* Header */
+
+.visit-header {
+    max-width: 850px;
+
+    margin: 0 auto 50px;
+}
+
+
+.visit-header h2 {
+    margin: 20px 0 16px;
+
+    font-size: 44px;
+
+    line-height: 1.2;
+
+    color: #176b24;
+}
+
+
+.visit-header h2 span {
+    color: #7acb7f;
+}
+
+
+.visit-header p {
+    color: #666;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+
+/* Cards */
+
+.visit-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+
+.visit-card {
+    background: #ffffff;
+
+    padding: 35px 25px;
+
+    min-height: 210px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 7px 22px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.visit-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Icon */
+
+.visit-icon {
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e7f3e8;
+
+    color: #176b24;
+
+    font-size: 23px;
+}
+
+
+.visit-card h3 {
+    color: #176b24;
+
+    font-size: 19px;
+
+    margin-bottom: 10px;
+}
+
+
+.visit-card p {
+    color: #777;
+
+    font-size: 15px;
+
+    margin-bottom: 8px;
+}
+
+
+.visit-card strong {
+    color: #333;
+
+    font-size: 15px;
+}
+
+
+/* Button */
+
+.visit-button {
+    margin-top: 45px;
+}
+
+
+/* ============================= */
+/* Tablet */
+/* ============================= */
+
+@media (max-width: 900px) {
+
+    .visit-section {
+        width: 90%;
+    }
+
+    .visit-cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* ============================= */
+/* Mobile */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    .visit-section {
+        width: 90%;
+
+        margin: 80px auto;
+    }
+
+    .visit-header h2 {
+        font-size: 32px;
+    }
+
+    .visit-header p {
+        font-size: 15px;
+    }
+
+    .visit-cards {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .visit-card {
+        min-height: 190px;
+    }
+
+}
+
+/* ============================= */
+/* Caring for Our Animals */
+/* ============================= */
+
+.care-section {
+    width: 92%;
+    max-width: 1400px;
+
+    margin: 120px auto;
+
+    display: grid;
+
+    grid-template-columns: 1.05fr 1fr;
+
+    gap: 85px;
+
+    align-items: center;
+}
+
+
+/* Image */
+
+.care-image {
+    height: 500px;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+.care-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+
+.care-image:hover img {
+    transform: scale(1.05);
+}
+
+
+/* Content */
+
+.care-content {
+    padding: 20px 0;
+}
+
+
+.care-content h2 {
+    margin: 20px 0;
+
+    font-size: 44px;
+
+    line-height: 1.2;
+
+    color: #176b24;
+}
+
+
+.care-content h2 span {
+    color: #7acb7f;
+}
+
+
+.care-content > p {
+    color: #666;
+
+    font-size: 17px;
+
+    line-height: 1.75;
+
+    margin-bottom: 18px;
+
+    max-width: 650px;
+}
+
+
+/* Points */
+
+.care-points {
+    margin-top: 35px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+}
+
+
+.care-point {
+    display: flex;
+
+    gap: 15px;
+
+    align-items: flex-start;
+}
+
+
+.care-point > i {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e7f3e8;
+
+    color: #176b24;
+
+    font-size: 16px;
+}
+
+
+.care-point h3 {
+    color: #176b24;
+
+    font-size: 17px;
+
+    margin-bottom: 6px;
+}
+
+
+.care-point p {
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.55;
+
+    margin: 0;
+}
+
+
+/* ============================= */
+/* Tablet */
+/* ============================= */
+
+@media (max-width: 900px) {
+
+    .care-section {
+        width: 90%;
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .care-image {
+        height: 420px;
+    }
+
+}
+
+
+/* ============================= */
+/* Mobile */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    .care-section {
+        width: 90%;
+
+        margin: 80px auto;
+    }
+
+    .care-image {
+        height: 320px;
+
+        border-radius: 18px;
+    }
+
+    .care-content h2 {
+        font-size: 32px;
+    }
+
+    .care-content > p {
+        font-size: 15px;
+    }
+
+    .care-points {
+        gap: 20px;
+    }
+
+}
+
+/* ============================= */
+/* Booking CTA */
+/* ============================= */
+
+.booking-cta {
+    width: 86%;
+    max-width: 1200px;
+
+    margin: 100px auto;
+
+    padding: 70px 40px;
+
+    border-radius: 24px;
+
+    background: transparent;
+
+    text-align: center;
+
+    box-shadow: none;
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+
+/* Content */
+
+.booking-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 700px;
+
+    margin: auto;
+}
+
+
+/* Tag */
+
+.booking-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px 15px;
+
+    border-radius: 20px;
+
+    background: #e7f3e8;
+
+    color: #176b24;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* Heading */
+
+.booking-content h2 {
+    margin: 20px 0 15px;
+
+    font-size: 40px;
+
+    line-height: 1.2;
+
+    color: #176b24;
+}
+
+
+/* Green highlighted text */
+
+.booking-content h2 span {
+    color: #69bd70;
+}
+
+
+/* Description */
+
+.booking-content p {
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    color: #555;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* Buttons */
+
+.booking-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+
+.booking-buttons .primary-btn {
+    background: white;
+
+    color: #176b24;
+}
+
+
+.booking-buttons .primary-btn:hover {
+    background: #f1f7f1;
+}
+
+
+.booking-buttons .secondary-btn {
+    background: rgba(255, 255, 255, 0.8);
+
+    color: #176b24;
+
+    border: 2px solid #176b24;
+}
+
+.booking-buttons .secondary-btn:hover {
+    background: #176b24;
+
+    color: white;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .booking-cta {
+        width: 90%;
+
+        padding: 55px 25px;
+    }
+
+    .booking-content h2 {
+        font-size: 30px;
+    }
+
+    .booking-buttons {
+        flex-direction: column;
+    }
+
+    .booking-buttons a {
+        width: 100%;
+    }
+
+}
+
+/* ============================= */
+/* Home Page Background */
+/* ============================= */
+
+.home-page {
+    background-color: #f8f7e9;
+
+    background-image: url("../images/home-background.png");
+
+    background-size: 100% auto;
+
+    background-position: top center;
+
+    background-repeat: repeat-y;
+
+    background-attachment: scroll;
+}

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-container profile-edit-container">
+
+    <h2>Edit Profile</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <!-- Personal Information -->
+
+        <div class="profile-section">
+
+            <div class="form-group">
+                <label>First Name</label>
+                {{ form.first_name }}
+
+                {% if form.first_name.errors %}
+                    <div class="error-message">
+                        {{ form.first_name.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="form-group">
+                <label>Last Name</label>
+                {{ form.last_name }}
+
+                {% if form.last_name.errors %}
+                    <div class="error-message">
+                        {{ form.last_name.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="form-group">
+                <label>Email</label>
+                {{ form.email }}
+
+                {% if form.email.errors %}
+                    <div class="error-message">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+
+        <!-- Password Section -->
+
+        <div class="password-section">
+
+            <h3>Change Password</h3>
+
+            <div class="form-group">
+                <label>Current Password</label>
+                {{ form.current_password }}
+
+                {% if form.current_password.errors %}
+                    <div class="error-message">
+                        {{ form.current_password.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="form-group">
+                <label>New Password</label>
+                {{ form.new_password }}
+
+                {% if form.new_password.errors %}
+                    <div class="error-message">
+                        {{ form.new_password.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                {{ form.confirm_password }}
+
+                {% if form.confirm_password.errors %}
+                    <div class="error-message">
+                        {{ form.confirm_password.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="profile-actions">
+
+            <button type="submit" class="save-btn">
+
+                <i class="fa-solid fa-lock"></i>
+                Save Changes
+
+            </button>
+
+
+            <a href="{% url 'my_profile' %}" class="cancel-btn">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -68,3 +68,43 @@ class StaffEditForm(forms.Form):
             ("Maintenance", "Maintenance"),
         ]
     )
+class StaffProfileForm(forms.Form):
+
+    first_name = forms.CharField(
+        max_length=100
+    )
+
+    last_name = forms.CharField(
+        max_length=100
+    )
+
+    email = forms.EmailField(
+        required=False
+    )
+
+    current_password = forms.CharField(
+        required=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Enter current password"
+            }
+        )
+    )
+
+    new_password = forms.CharField(
+        required=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Enter new password"
+            }
+        )
+    )
+
+    confirm_password = forms.CharField(
+        required=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Confirm new password"
+            }
+        )
+    )

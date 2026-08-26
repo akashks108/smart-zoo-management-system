@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h2>My Profile</h2>
+        <p>View your staff information</p>
+    </div>
+
+</div>
+
+
+<div class="animal-info-card">
+
+    <div class="animal-details">
+
+        <h2>
+            {{ staff.user.get_full_name|default:staff.user.username }}
+        </h2>
+
+        <p>
+            <strong>Username:</strong>
+            {{ staff.user.username }}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            {{ staff.user.email|default:"-" }}
+        </p>
+
+        <p>
+            <strong>Designation:</strong>
+            {{ staff.designation }}
+        </p>
+
+        <p>
+            <strong>Department:</strong>
+            {{ staff.department }}
+        </p>
+
+    </div>
+
+</div>
+
+<a href="{% url 'edit_profile' %}" class="edit-btn"
+    style="padding: 10px 18px; font-size: 14px;">
+    <i class="fa-solid fa-pen"></i>
+    Edit Profile
+
+</a>
+
+
+<a href="{% url 'staff_dashboard' %}" class="add-btn">
+    
+    <i class="fa-solid fa-arrow-left"></i>
+    Back to Dashboard
+
+</a>
+
+{% endblock %}
