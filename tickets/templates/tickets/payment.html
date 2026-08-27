@@ -1,0 +1,252 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | Zoo</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'visitors/css/visitor.css' %}">
+
+</head>
+
+
+<body class="booking-page">
+
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-paw"></i>
+        ZOO
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'visitor_home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'animal_gallery' %}">
+            Animals
+        </a>
+
+        <a href="{% url 'book_ticket' %}">
+            Tickets
+        </a>
+
+        <a href="#">
+            About
+        </a>
+
+
+        <a href="{% url 'logout' %}"
+           class="login-btn">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="payment-container">
+
+
+    <div class="payment-header">
+
+        <span class="section-tag">
+
+            <i class="fa-solid fa-lock"></i>
+
+            SECURE PAYMENT
+
+        </span>
+
+
+        <h1>
+            Complete Your <span>Payment</span>
+        </h1>
+
+
+        <p>
+            Complete the payment below to confirm
+            your zoo visit.
+        </p>
+
+    </div>
+
+
+    <div class="payment-card">
+
+
+        <div class="payment-icon">
+
+            <i class="fa-solid fa-credit-card"></i>
+
+        </div>
+
+
+        <h2>
+            Online Payment
+        </h2>
+
+
+        <p class="payment-demo">
+
+            Demo payment — no real money will be charged.
+
+        </p>
+
+
+        <!-- Amount -->
+
+        <div class="payment-amount">
+
+            <span>
+                Total Amount
+            </span>
+
+            <strong>
+                ₹{{ total_amount }}
+            </strong>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Card Number -->
+
+            <div class="payment-form-group">
+
+                <label>
+
+                    <i class="fa-solid fa-credit-card"></i>
+
+                    Card Number
+
+                </label>
+
+
+                <input
+                    type="text"
+                    placeholder="4242 4242 4242 4242"
+                    maxlength="19"
+                    required>
+
+            </div>
+
+
+            <!-- Expiry and CVV -->
+
+            <div class="payment-row">
+
+
+                <div class="payment-form-group">
+
+                    <label>
+                        Expiry Date
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="MM/YY"
+                        maxlength="5"
+                        required>
+
+                </div>
+
+
+                <div class="payment-form-group">
+
+                    <label>
+                        CVV
+                    </label>
+
+                    <input
+                        type="password"
+                        placeholder="123"
+                        maxlength="3"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- Name -->
+
+            <div class="payment-form-group">
+
+                <label>
+
+                    <i class="fa-solid fa-user"></i>
+
+                    Cardholder Name
+
+                </label>
+
+
+                <input
+                    type="text"
+                    placeholder="Enter cardholder name"
+                    required>
+
+            </div>
+
+
+            <!-- Pay -->
+
+            <button
+                type="submit"
+                class="payment-button">
+
+                <i class="fa-solid fa-lock"></i>
+
+                Pay ₹{{ total_amount }}
+
+            </button>
+
+
+        </form>
+
+
+        <p class="demo-note">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            This is a simulated payment system
+            for demonstration purposes.
+
+        </p>
+
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def admin_login(request):
@@ -102,3 +103,11 @@ def user_logout(request):
     logout(request)
 
     return redirect("visitor_home")
+
+@login_required(login_url="/accounts/login/")
+def profile(request):
+
+    return render(
+        request,
+        "accounts/profile.html"
+    )

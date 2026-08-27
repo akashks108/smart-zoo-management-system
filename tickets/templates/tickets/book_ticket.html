@@ -1,0 +1,356 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Book Your Visit | Zoo</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'visitors/css/visitor.css' %}">
+
+</head>
+
+
+<body class="booking-page">
+
+
+<!-- ========================= -->
+<!-- Navigation -->
+<!-- ========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-paw"></i>
+        ZOO
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'visitor_home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'animal_gallery' %}">
+            Animals
+        </a>
+
+        <a href="{% url 'book_ticket' %}" class="active">
+            Tickets
+        </a>
+
+        <a href="#">
+            About
+        </a>
+
+
+        {% if user.is_authenticated %}
+
+            <a href="{% url 'logout' %}" class="login-btn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        {% else %}
+
+            <a href="{% url 'login' %}" class="login-btn">
+
+                <i class="fa-solid fa-user"></i>
+
+                Login
+
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+<!-- ========================= -->
+<!-- Booking Page -->
+<!-- ========================= -->
+
+<main class="booking-page-container">
+
+
+    <div class="booking-header">
+
+        <span class="section-tag">
+
+            <i class="fa-solid fa-ticket"></i>
+
+            ZOO TICKETS
+
+        </span>
+
+
+        <h1>
+            Book Your <span>Visit</span>
+        </h1>
+
+
+        <p>
+            Plan your visit and enjoy a wonderful day
+            exploring our amazing wildlife.
+        </p>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- Booking Card -->
+    <!-- ========================= -->
+
+    <div class="booking-card">
+
+
+        <!-- Left Information -->
+
+        <div class="booking-info">
+
+            <div class="booking-icon">
+
+                <i class="fa-solid fa-paw"></i>
+
+            </div>
+
+
+            <h2>
+                Plan Your Zoo Visit
+            </h2>
+
+
+            <p>
+                Select your visit date and the number
+                of tickets you need.
+            </p>
+
+
+            <div class="ticket-price-info">
+
+                <div>
+
+                    <span>
+                        <i class="fa-solid fa-user"></i>
+                        Adult
+                    </span>
+
+                    <strong>
+                        ₹200
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        <i class="fa-solid fa-child"></i>
+                        Child
+                    </span>
+
+                    <strong>
+                        ₹100
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Booking Form -->
+
+        <div class="booking-form-container">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- Visit Date -->
+
+                <div class="form-group">
+
+                    <label for="visit_date">
+
+                        <i class="fa-solid fa-calendar-days"></i>
+
+                        Visit Date
+
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="visit_date"
+                        name="visit_date"
+                        required>
+
+                </div>
+
+
+                <!-- Adults -->
+
+                <div class="form-group">
+
+                    <label for="adults">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        Adult Tickets
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="adults"
+                        name="adults"
+                        value="1"
+                        min="1"
+                        required>
+
+                </div>
+
+
+                <!-- Children -->
+
+                <div class="form-group">
+
+                    <label for="children">
+
+                        <i class="fa-solid fa-child"></i>
+
+                        Child Tickets
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="children"
+                        name="children"
+                        value="0"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <!-- Total -->
+
+                <div class="booking-total">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong id="totalAmount">
+                        ₹200
+                    </strong>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="booking-submit">
+
+                    <i class="fa-solid fa-ticket"></i>
+
+                    Book Your Visit
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ========================= -->
+<!-- Price Calculation -->
+<!-- ========================= -->
+
+<script>
+
+    const adultInput =
+        document.getElementById("adults");
+
+    const childInput =
+        document.getElementById("children");
+
+    const totalAmount =
+        document.getElementById("totalAmount");
+
+
+    function calculateTotal() {
+
+        const adults =
+            parseInt(adultInput.value) || 0;
+
+        const children =
+            parseInt(childInput.value) || 0;
+
+
+        const adultPrice = 200;
+
+        const childPrice = 100;
+
+
+        const total =
+            (adults * adultPrice) +
+            (children * childPrice);
+
+
+        totalAmount.textContent =
+            "₹" + total;
+
+    }
+
+
+    adultInput.addEventListener(
+        "input",
+        calculateTotal
+    );
+
+
+    childInput.addEventListener(
+        "input",
+        calculateTotal
+    );
+
+
+    calculateTotal();
+
+</script>
+
+
+</body>
+
+</html>

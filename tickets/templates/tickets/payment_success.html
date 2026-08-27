@@ -1,0 +1,203 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Payment Successful | Zoo</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'visitors/css/visitor.css' %}">
+
+</head>
+
+
+<body class="booking-page">
+
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-paw"></i>
+        ZOO
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'visitor_home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'animal_gallery' %}">
+            Animals
+        </a>
+
+        <a href="{% url 'book_ticket' %}">
+            Tickets
+        </a>
+
+        <a href="#">
+            About
+        </a>
+
+        <a href="{% url 'logout' %}"
+           class="login-btn">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="success-container">
+
+
+    <div class="success-card">
+
+
+        <div class="success-icon">
+
+            <i class="fa-solid fa-check"></i>
+
+        </div>
+
+
+        <h1>
+            Payment <span>Successful!</span>
+        </h1>
+
+
+        <p class="success-message">
+
+            Your zoo visit has been booked successfully.
+
+        </p>
+
+
+        <div class="booking-id">
+
+            Booking ID:
+            <strong>
+                ZOO-{{ booking.id }}
+            </strong>
+
+        </div>
+
+
+        <div class="success-details">
+
+
+            <div class="success-detail">
+
+                <span>
+                    <i class="fa-solid fa-calendar-days"></i>
+                    Visit Date
+                </span>
+
+                <strong>
+                    {{ booking.visit_date }}
+                </strong>
+
+            </div>
+
+
+            <div class="success-detail">
+
+                <span>
+                    <i class="fa-solid fa-user"></i>
+                    Adult Tickets
+                </span>
+
+                <strong>
+                    {{ booking.adults }}
+                </strong>
+
+            </div>
+
+
+            <div class="success-detail">
+
+                <span>
+                    <i class="fa-solid fa-child"></i>
+                    Child Tickets
+                </span>
+
+                <strong>
+                    {{ booking.children }}
+                </strong>
+
+            </div>
+
+
+            <div class="success-detail total">
+
+                <span>
+                    Total Paid
+                </span>
+
+                <strong>
+                    ₹{{ booking.total_amount }}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="success-actions">
+
+            <a href="{% url 'download_ticket' booking.id %}"
+               class="download-ticket-btn">
+
+                <i class="fa-solid fa-download"></i>
+
+                Download Ticket
+
+            </a>
+
+
+            <a href="{% url 'animal_gallery' %}"
+               class="back-animals-btn">
+
+                Explore Animals
+
+            </a>
+
+        </div>
+
+
+        <p class="success-note">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            Your ticket will be available for download.
+
+        </p>
+
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>

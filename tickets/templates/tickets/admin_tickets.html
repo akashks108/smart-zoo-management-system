@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h2>Visitor Bookings</h2>
+
+        <p>
+            View all zoo ticket bookings made by visitors.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- Monthly Filter -->
+
+<div class="booking-filter">
+
+    <form method="GET">
+
+        <label for="month">
+            <i class="fa-solid fa-calendar"></i>
+            Booking Month
+        </label>
+
+        <input
+            type="month"
+            id="month"
+            name="month"
+            value="{{ selected_month }}"
+        >
+
+        <button type="submit">
+            <i class="fa-solid fa-filter"></i>
+            Filter
+        </button>
+
+        <a href="{% url 'admin_tickets' %}">
+            Clear
+        </a>
+
+    </form>
+
+</div>
+
+<div class="booking-stats">
+
+    <div class="booking-stat-card">
+
+        <div class="booking-stat-icon">
+            <i class="fa-solid fa-ticket"></i>
+        </div>
+
+        <div>
+
+            <span>Total Bookings</span>
+
+            <strong>
+                {{ total_bookings }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="booking-stat-card">
+
+        <div class="booking-stat-icon">
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+        </div>
+
+        <div>
+
+            <span>Total Revenue</span>
+
+            <strong>
+                ₹{{ total_revenue }}
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% if bookings %}
+
+<div class="feedback-table-container">
+
+    <table class="animal-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Visitor</th>
+                <th>Visit Date</th>
+                <th>Adults</th>
+                <th>Children</th>
+                <th>Total Amount</th>
+                <th>Booked On</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for booking in bookings %}
+
+            <tr>
+
+                <td>
+                    {{ booking.user.username }}
+                </td>
+
+                <td>
+                    {{ booking.visit_date|date:"d M Y" }}
+                </td>
+
+                <td>
+                    {{ booking.adults }}
+                </td>
+
+                <td>
+                    {{ booking.children }}
+                </td>
+
+                <td>
+                    ₹{{ booking.total_amount }}
+                </td>
+
+                <td>
+                    {{ booking.created_at|date:"d M Y, h:i A" }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% else %}
+
+<div class="no-feedback">
+
+    <i class="fa-solid fa-ticket"></i>
+
+    <h3>
+        No Bookings Yet
+    </h3>
+
+    <p>
+        No visitor ticket bookings have been made yet.
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

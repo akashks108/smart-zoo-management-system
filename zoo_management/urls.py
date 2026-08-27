@@ -33,6 +33,8 @@ urlpatterns = [
     path("health-records/", include("health_records.urls")),
     path("feeding/", include("feeding.urls")),
     path("visitors/", include("visitors.urls")),
+    path("tickets/", include("tickets.urls")),
+    path("feedback/",include("feedback.urls")),
 ]
 
 if settings.DEBUG:

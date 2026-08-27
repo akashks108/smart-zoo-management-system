@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h2>Visitor Feedback</h2>
+
+        <p>
+            View feedback submitted by zoo visitors.
+        </p>
+    </div>
+
+</div>
+
+<div class="feedback-stats">
+
+    <div class="feedback-stat-card">
+
+        <div class="feedback-stat-icon">
+            <i class="fa-solid fa-comments"></i>
+        </div>
+
+        <div>
+            <span>Total Feedback</span>
+            <strong>{{ total_feedbacks }}</strong>
+        </div>
+
+    </div>
+
+
+    <div class="feedback-stat-card">
+
+        <div class="feedback-stat-icon">
+            <i class="fa-solid fa-star"></i>
+        </div>
+
+        <div>
+            <span>Average Rating</span>
+            <strong>{{ average_rating }} / 5</strong>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% if feedbacks %}
+
+<div class="feedback-table-container">
+
+    <table class="animal-table">
+
+        <thead>
+            <tr>
+                <th>Visitor</th>
+                <th>Rating</th>
+                <th>Feedback</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+            {% for feedback in feedbacks %}
+
+            <tr>
+
+                <td>
+                    {{ feedback.user.username }}
+                </td>
+
+
+                <td>
+
+                    <span class="rating">
+
+                        {% for i in "12345" %}
+
+                            {% if forloop.counter <= feedback.rating %}
+
+                                <i class="fa-solid fa-star"></i>
+
+                            {% else %}
+
+                                <i class="fa-regular fa-star"></i>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </span>
+
+                </td>
+
+
+                <td class="comment-cell">
+                    {{ feedback.comment }}
+                </td>
+
+
+                <td>
+                    {{ feedback.created_at|date:"d M Y, h:i A" }}
+                </td>
+
+                <td>
+
+                    <form method="POST"
+                        action="{% url 'delete_feedback' feedback.id %}"
+                        onsubmit="return confirm('Are you sure you want to delete this feedback?');">
+
+                        {% csrf_token %}
+
+                        <button type="submit" class="delete-btn">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% else %}
+
+<div class="no-feedback">
+
+    <i class="fa-solid fa-comments"></i>
+
+    <h3>
+        No Feedback Yet
+    </h3>
+
+    <p>
+        Visitors have not submitted any feedback yet.
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
