@@ -111,3 +111,27 @@ def profile(request):
         request,
         "accounts/profile.html"
     )
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
+
+@login_required
+def edit_profile(request):
+
+    if request.method == "POST":
+
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+
+        request.user.username = username
+        request.user.email = email
+
+        request.user.save()
+
+        messages.success(request, "Profile updated successfully!")
+
+        return redirect("profile")
+
+    return render(request, "accounts/edit_profile.html")

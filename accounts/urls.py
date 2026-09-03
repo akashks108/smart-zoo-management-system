@@ -27,4 +27,6 @@ urlpatterns = [
     name="profile"
     ),
 
+    path("profile/edit/", views.edit_profile, name="visitor_edit_profile"),  
+
 ]

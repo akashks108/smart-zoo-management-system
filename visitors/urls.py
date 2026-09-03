@@ -22,4 +22,10 @@ urlpatterns = [
         name="animal_detail"
     ),
 
+    path(
+    "chatbot/",
+    views.chatbot,
+    name="chatbot"
+    ),
+
 ]

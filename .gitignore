@@ -20,7 +20,7 @@ env/
 # Static files
 staticfiles/
 
-# Environment variables
+Environment variables
 .env
 
 # Logs
