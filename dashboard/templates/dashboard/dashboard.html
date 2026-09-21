@@ -15,15 +15,152 @@
 
     <div class="card">
         <h3>Total Staff</h3>
-        <h1>18</h1>
+        <h1>{{ total_staff }}</h1>
     </div>
 
     <div class="card">
-        <h3>Tickets Today</h3>
-        <h1>43</h1>
+        <h3>Today's Visitors</h3>
+        <h1>{{ todays_visitors }}</h1>
     </div>
 
 </div>
+
+<div class="dashboard-chart" style="margin-top: 35px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+
+        <h3 style="margin: 0;">Revenue Overview</h3>
+
+        <form method="get">
+            <select name="period" onchange="this.form.submit()">
+                <option value="all" {% if period == "all" %}selected{% endif %}>All Time</option>
+                <option value="this_month" {% if period == "this_month" %}selected{% endif %}>This Month</option>
+                <option value="last_month" {% if period == "last_month" %}selected{% endif %}>Last Month</option>
+                <option value="last_3_months" {% if period == "last_3_months" %}selected{% endif %}>Last 3 Months</option>
+                <option value="this_year" {% if period == "this_year" %}selected{% endif %}>This Year</option>
+            </select>
+        </form>
+
+    </div>
+
+    <canvas id="revenueChart"></canvas>
+>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div style="margin-top: 35px;">
+
+    <h3>Staff Leave Requests</h3>
+
+    {% if leave_requests %}
+
+        <table class="animal-table" style="margin-top: 15px;">
+
+            <thead>
+                <tr>
+                    <th>Staff Name</th>
+                    <th>Leave Date</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for leave in leave_requests %}
+
+                <tr>
+                    <td>
+                        {{ leave.staff.user.get_full_name|default:leave.staff.user.username }}
+                    </td>
+
+                    <td>
+                        {{ leave.leave_date }}
+                    </td>
+
+                    <td>
+                        {{ leave.reason }}
+                    </td>
+
+                
+                        <td>
+
+                            <a href="{% url 'update_leave_status' leave.id 'Approved' %}"
+                                class="health-btn">
+                                    Approve
+                            </a>
+
+                            <a href="{% url 'update_leave_status' leave.id 'Rejected' %}"
+                                class="delete-btn">
+                                    Reject
+                            </a>
+
+                        </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p style="margin-top: 15px;">
+            No pending leave requests.
+        </p>
+
+    {% endif %}
+
+</div>
+
+<script>
+
+    const revenueData = JSON.parse('{{ revenue_data|escapejs }}');
+
+    const labels = revenueData.map(item => item.date);
+    const values = revenueData.map(item => item.revenue);
+
+    const ctx = document.getElementById("revenueChart");
+
+    new Chart(ctx, {
+
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [{
+                label: "Revenue (₹)",
+                data: values,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+
+        }
+
+    });
+
+</script>
 
 
 {% endblock %}

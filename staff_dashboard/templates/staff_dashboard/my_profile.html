@@ -5,7 +5,12 @@
 <div class="page-header">
 
     <div>
-        <h2>My Profile</h2>
+        <a href="{% url 'staff_dashboard' %}" class="add-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+
+        <h2 style="margin-top: 30px;">My Profile</h2>
         <p>View your staff information</p>
     </div>
 
@@ -51,12 +56,72 @@
 
 </a>
 
-
-<a href="{% url 'staff_dashboard' %}" class="add-btn">
-    
-    <i class="fa-solid fa-arrow-left"></i>
-    Back to Dashboard
-
+<a href="{% url 'apply_leave' %}" class="leave-btn">
+    <i class="fa-solid fa-calendar-days"></i>
+    Apply for Leave
 </a>
+
+<div style="margin-top: 40px;">
+
+    <h3>My Leave Requests</h3>
+
+    {% if leave_requests %}
+
+        <table class="animal-table" style="margin-top: 15px;">
+
+            <thead>
+                <tr>
+                    <th>Leave Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for leave in leave_requests %}
+
+                <tr>
+                    <td>{{ leave.leave_date }}</td>
+
+                    <td>{{ leave.reason }}</td>
+
+                    <td>
+
+                        {% if leave.status == "Pending" %}
+                            <span class="leave-status leave-pending">
+                                Pending
+                            </span>
+
+                        {% elif leave.status == "Approved" %}
+                            <span class="leave-status leave-approved">
+                                Approved
+                            </span>
+
+                        {% elif leave.status == "Rejected" %}
+                            <span class="leave-status leave-rejected">
+                                Rejected
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p style="margin-top: 15px;">
+            No leave requests submitted.
+        </p>
+
+    {% endif %}
+
+</div>
 
 {% endblock %}

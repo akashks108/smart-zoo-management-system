@@ -1,10 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.utils import timezone
+from feeding.models import FeedingSchedule
 
 from staff.forms import StaffProfileForm
+from staff.models import LeaveRequest
 
 from animals.models import Animal
+from health_records.models import HealthRecord
 
 
 @login_required
@@ -14,10 +18,25 @@ def staff_dashboard(request):
         assigned_staff=request.user.staff
     )
 
+    today = timezone.localdate()
+
+    todays_feeding = FeedingSchedule.objects.filter(
+        animal__in=assigned_animals,
+        feeding_date=today
+        ).values("animal").distinct().count()
+
+    todays_health_checks = HealthRecord.objects.filter(
+        animal__in=assigned_animals,
+        checkup_date=today
+        ).values("animal").distinct().count()
+
     context = {
         "staff": request.user.staff,
         "assigned_animals": assigned_animals,
         "total_animals": assigned_animals.count(),
+        "todays_feeding": todays_feeding,
+        "todays_health_checks": todays_health_checks,
+
     }
 
     return render(
@@ -47,8 +66,13 @@ def my_profile(request):
 
     staff = request.user.staff
 
+    leave_requests = LeaveRequest.objects.filter(
+        staff=staff
+    ).order_by("-created_at")
+
     context = {
         "staff": staff,
+        "leave_requests": leave_requests,
     }
 
     return render(

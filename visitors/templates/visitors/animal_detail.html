@@ -505,6 +505,358 @@
 
 </script>
 
+<!-- ========================= -->
+<!-- Zoo AI Assistant -->
+<!-- ========================= -->
+
+<div class="zoo-chatbot">
+
+    <!-- Floating Animal Button -->
+    <button
+        type="button"
+        class="chatbot-animal-btn"
+        id="chatbotAnimalBtn"
+        title="Zoo Assistant">
+
+        <span class="chatbot-animal">🦁</span>
+
+        <span class="chatbot-tooltip">
+            Need help? Ask our Zoo Assistant!
+        </span>
+
+    </button>
+
+
+    <!-- Chat Window -->
+    <div
+        class="chatbot-window"
+        id="chatbotWindow">
+
+        <!-- Header -->
+        <div class="chatbot-header">
+
+            <div class="chatbot-title">
+
+                <span class="chatbot-header-icon">
+                    🦁
+                </span>
+
+                <div>
+                    <strong>Zoo Assistant</strong>
+
+                    <small>
+                        Your friendly zoo guide
+                    </small>
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="chatbot-close"
+                id="chatbotClose">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- Messages -->
+        <div
+            class="chatbot-messages"
+            id="chatbotMessages">
+
+            <div class="chatbot-message bot-message">
+
+                <div class="message-icon">
+                    🦁
+                </div>
+
+                <div class="message-content">
+
+                    Hello! 👋
+
+                    <br><br>
+
+                    I'm your Zoo Assistant. I can help you with:
+
+                    <br><br>
+
+                    🐾 Animals<br>
+                    🎫 Tickets & Booking<br>
+                    🏞️ Zoo Information
+
+                    <br><br>
+
+                    What would you like to know?
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Input -->
+        <div class="chatbot-input-area">
+
+            <input
+                type="text"
+                id="chatbotInput"
+                placeholder="Ask about animals, tickets..."
+                autocomplete="off">
+
+            <button
+                type="button"
+                id="chatbotSend"
+                title="Send">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ========================= */
+/* Zoo AI Assistant */
+/* ========================= */
+
+const chatbotAnimalBtn =
+    document.getElementById("chatbotAnimalBtn");
+
+const chatbotWindow =
+    document.getElementById("chatbotWindow");
+
+const chatbotClose =
+    document.getElementById("chatbotClose");
+
+const chatbotSend =
+    document.getElementById("chatbotSend");
+
+const chatbotInput =
+    document.getElementById("chatbotInput");
+
+const chatbotMessages =
+    document.getElementById("chatbotMessages");
+
+
+/* ========================= */
+/* Open Chatbot */
+/* ========================= */
+
+chatbotAnimalBtn.addEventListener("click", function () {
+
+    chatbotWindow.style.display = "flex";
+
+    chatbotInput.focus();
+
+});
+
+
+/* ========================= */
+/* Close Chatbot */
+/* ========================= */
+
+chatbotClose.addEventListener("click", function () {
+
+    chatbotWindow.style.display = "none";
+
+});
+
+
+/* ========================= */
+/* Add User Message */
+/* ========================= */
+
+function addUserMessage(message) {
+
+    const messageDiv =
+        document.createElement("div");
+
+    messageDiv.className =
+        "chatbot-message user-message";
+
+    messageDiv.innerHTML = `
+
+        <div class="message-content">
+            ${message}
+        </div>
+
+        <div class="user-message-icon">
+            👤
+        </div>
+
+    `;
+
+    chatbotMessages.appendChild(messageDiv);
+
+    chatbotMessages.scrollTop =
+        chatbotMessages.scrollHeight;
+}
+
+
+/* ========================= */
+/* Add Bot Message */
+/* ========================= */
+
+function addBotMessage(message) {
+
+    const messageDiv =
+        document.createElement("div");
+
+    messageDiv.className =
+        "chatbot-message bot-message";
+
+    messageDiv.innerHTML = `
+
+        <div class="message-icon">
+            🦁
+        </div>
+
+        <div class="message-content">
+            ${message}
+        </div>
+
+    `;
+
+    chatbotMessages.appendChild(messageDiv);
+
+    chatbotMessages.scrollTop =
+        chatbotMessages.scrollHeight;
+}
+
+
+/* ========================= */
+/* Get Django CSRF Cookie */
+/* ========================= */
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+
+        const cookies =
+            document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (
+                cookie.substring(
+                    0,
+                    name.length + 1
+                ) === name + "="
+            ) {
+
+                cookieValue = decodeURIComponent(
+                    cookie.substring(
+                        name.length + 1
+                    )
+                );
+
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+
+
+/* ========================= */
+/* Send Message */
+/* ========================= */
+
+function sendMessage() {
+
+    const message =
+        chatbotInput.value.trim();
+
+    if (message === "") {
+        return;
+    }
+
+    addUserMessage(message);
+
+    chatbotInput.value = "";
+
+    fetch("/visitors/chatbot/", {
+
+        method: "POST",
+
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "Content-Type":
+                "application/x-www-form-urlencoded",
+        },
+
+        body: new URLSearchParams({
+            message: message + " " + "{{ animal.name|escapejs }}"
+        })
+
+    })
+    .then(response => response.json())
+
+    .then(data => {
+
+        addBotMessage(data.reply);
+
+    })
+
+    .catch(error => {
+
+        console.error("Chatbot error:", error);
+
+        addBotMessage(
+            "Sorry, something went wrong. Please try again."
+        );
+
+    });
+
+}
+
+
+/* ========================= */
+/* Send Button */
+/* ========================= */
+
+chatbotSend.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+/* ========================= */
+/* Enter Key */
+/* ========================= */
+
+chatbotInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 

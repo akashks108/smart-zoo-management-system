@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from .models import Staff
+from .models import Staff, LeaveRequest
 from django.shortcuts import render, redirect
 from .forms import StaffForm, StaffEditForm
 
@@ -212,3 +212,31 @@ def staff_logout(request):
     logout(request)
 
     return redirect("login")
+
+@login_required
+def apply_leave(request):
+
+    staff = Staff.objects.get(user=request.user)
+
+    if request.method == "POST":
+
+        leave_date = request.POST.get("leave_date")
+        reason = request.POST.get("reason")
+
+        LeaveRequest.objects.create(
+            staff=staff,
+            leave_date=leave_date,
+            reason=reason
+        )
+
+        messages.success(
+            request,
+            "Leave request submitted successfully."
+        )
+
+        return redirect("staff_dashboard")
+
+    return render(
+        request,
+        "staff/apply_leave.html"
+    )

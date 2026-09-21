@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from animals.models import Animal
+from tickets.models import Booking
 
 from google import genai
 from django.conf import settings
@@ -131,6 +132,87 @@ def chatbot(request):
                 found_animals.append(animal)
                 break
 
+
+    # Check if the visitor is asking about tickets
+
+    ticket_keywords = [
+        "ticket",
+        "tickets",
+        "booking",
+        "book",
+        "price",
+        "cost",
+        "adult",
+        "child",
+        "children",
+        "entry fee",
+        "admission",
+        "visit"
+    ]
+
+    is_ticket_question = any(
+        keyword in message_lower
+        for keyword in ticket_keywords
+    )
+
+    if is_ticket_question:
+
+        ticket_information = """
+Adult Ticket Price: ₹200
+Child Ticket Price: ₹100
+
+Booking process:
+1. Visitor must be logged in.
+2. Visitor selects the visit date.
+3. Visitor selects the number of adult tickets.
+4. Visitor selects the number of child tickets.
+5. The total amount is calculated.
+6. Visitor proceeds to the payment page.
+7. After payment, the booking is created.
+"""
+
+        prompt = f"""
+You are the friendly AI assistant for our zoo.
+
+The visitor asked:
+"{message}"
+
+Here is the official ticket information from our zoo system:
+
+{ticket_information}
+
+Answer the visitor's question naturally and conversationally.
+
+IMPORTANT RULES:
+- Use only the ticket information provided above.
+- Do not invent ticket prices, discounts, opening hours, or other booking information.
+- If the visitor asks something that the provided information does not answer, clearly say that the information is not available.
+- Explain the information in simple, natural sentences.
+- Keep the answer concise and friendly.
+"""
+
+        try:
+
+            response = client.interactions.create(
+                model="gemini-3.6-flash",
+                input=prompt
+            )
+
+            return JsonResponse({
+                "reply": response.output_text
+            })
+
+        except Exception as e:
+
+            print("Gemini error:", e)
+
+            return JsonResponse({
+                "reply":
+                    "Sorry, I'm having trouble connecting "
+                    "to the AI assistant right now."
+            })
+
+    
     # If an animal was found, give its information to Gemini
 
     if found_animals:
@@ -196,7 +278,84 @@ IMPORTANT RULES:
                     "to the AI assistant right now."
             })
 
-
+     # Check if the visitor is asking about the zoo
+    
+        zoo_keywords = [
+            "zoo",
+            "about",
+            "animal care",
+            "care",
+            "staff",
+            "visitor",
+            "visitors",
+            "facilities",
+            "management"
+        ]
+    
+        is_zoo_question = any(
+            keyword in message_lower
+            for keyword in zoo_keywords
+        )
+    
+        if is_zoo_question:
+    
+            zoo_information = f"""
+    Our zoo currently has {animals.count()} animals registered in the system.
+    
+    The zoo management system handles:
+    - Animal information
+    - Animal health records
+    - Feeding schedules
+    - Staff management
+    - Ticket booking
+    - Visitor feedback
+    
+    The system also includes an AI assistant to help visitors with:
+    - Animal-related questions
+    - Zoo-related questions
+    - Ticket booking information
+    """
+    
+            prompt = f"""
+    You are the friendly AI assistant for our zoo.
+    
+    The visitor asked:
+    "{message}"
+    
+    Here is the official zoo information available in our system:
+    
+    {zoo_information}
+    
+    Answer the visitor's question naturally and conversationally.
+    
+    IMPORTANT RULES:
+    - Use only the zoo information provided above.
+    - Do not invent opening hours, location, contact details, ticket discounts, facilities, or services that are not listed.
+    - If the visitor asks something that is not available in the provided information, clearly say that the information is not available.
+    - Keep the answer simple, concise, and friendly.
+    """
+    
+            try:
+    
+                response = client.interactions.create(
+                    model="gemini-3.6-flash",
+                    input=prompt
+                )
+    
+                return JsonResponse({
+                    "reply": response.output_text
+                })
+    
+            except Exception as e:
+    
+                print("Gemini error:", e)
+    
+                return JsonResponse({
+                    "reply":
+                        "Sorry, I'm having trouble connecting "
+                        "to the AI assistant right now."
+                })
+            
     # No animal was found
 
     return JsonResponse({

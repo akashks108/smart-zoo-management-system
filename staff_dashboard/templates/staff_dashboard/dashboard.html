@@ -2,32 +2,127 @@
 
 {% block content %}
 
-<h2>Staff Dashboard</h2>
+<div class="staff-dashboard-header">
+    <div>
+        <h2>Staff Dashboard</h2>
 
-<p>
-    Welcome,
-    <strong>{{ staff.user.get_full_name|default:staff.user.username }}</strong>
-</p>
+        <p>
+            Welcome,
+            <strong>{{ staff.user.get_full_name|default:staff.user.username }}</strong>
+        </p>
 
-<p>
-    {{ staff.designation }} |
-    {{ staff.department }}
-</p>
+        <p>{{ staff.designation }} | {{ staff.department }}</p>
+    </div>
+</div>
+
+
+<!-- Dashboard Cards -->
+
 <div class="cards">
 
-    <div class="card">
-        <h3>Assigned Animals</h3>
-        <h1>{{ total_animals }}</h1>
-    </div>
+    <a href="{% url 'my_animals' %}" class="dashboard-card-link">
+        <div class="card">
+            <h3>Assigned Animals</h3>
+            <h1>{{ total_animals }}</h1>
+        </div>
+    </a>
 
     <div class="card">
         <h3>Today's Feeding</h3>
-        <h1>0</h1>
+        <h1>{{ todays_feeding }}</h1>
     </div>
 
     <div class="card">
         <h3>Health Checks</h3>
-        <h1>0</h1>
+        <h1>{{ todays_health_checks }}<h1>
+    </div>
+
+</div>
+
+
+<!-- Assigned Animals Gallery -->
+
+<div class="assigned-animals-section">
+
+    <div class="section-header">
+
+        <h2>Your Assigned Animals</h2>
+
+        <a href="{% url 'my_animals' %}">
+            View All My Animals →
+        </a>
+
+    </div>
+
+
+    <div class="animal-gallery">
+
+        {% for animal in assigned_animals %}
+
+        <div class="animal-card">
+
+            {% if animal.image %}
+                <img src="{{ animal.image.url }}" alt="{{ animal.name }}">
+            {% else %}
+                <div class="animal-no-image">
+                    No Image
+                </div>
+            {% endif %}
+
+
+            <div class="animal-card-content">
+
+                <h3>{{ animal.name }}</h3>
+
+                <p class="animal-species">
+                    {{ animal.species }}
+                </p>
+
+                <p class="animal-habitat">
+                    📍 {{ animal.habitat }}
+                </p>
+
+
+                <div class="animal-health">
+
+                    {% if animal.health_status == "Healthy" %}
+
+                        <span class="health-healthy">
+                            ♥ {{ animal.health_status }}
+                        </span>
+
+                    {% elif animal.health_status == "Under Observation" %}
+
+                        <span class="health-observation">
+                            ♥ {{ animal.health_status }}
+                        </span>
+
+                    {% elif animal.health_status == "Under Treatment" %}
+
+                        <span class="health-treatment">
+                            ♥ {{ animal.health_status }}
+                        </span>
+
+                    {% elif animal.health_status == "Recovering" %}
+
+                        <span class="health-recovering">
+                            ♥ {{ animal.health_status }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p>No animals are currently assigned to you.</p>
+
+        {% endfor %}
+
     </div>
 
 </div>

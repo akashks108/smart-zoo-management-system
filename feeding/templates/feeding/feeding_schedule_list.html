@@ -5,7 +5,7 @@
 <div class="page-header">
 
     <h2>
-        Feeding Schedule - {{ animal.name }}
+        Feeding Report - {{ animal.name }}
     </h2>
 
 </div>
@@ -60,7 +60,7 @@
 </div>
 
 
-<!-- Add Feeding Schedule - Staff Only -->
+<!-- Add Feeding Reporte - Staff Only -->
 
 {% if request.user.staff %}
 
@@ -70,7 +70,7 @@
            class="add-btn">
 
             <i class="fa-solid fa-plus"></i>
-            Add Feeding Schedule
+            Add Feeding Report
 
         </a>
 
@@ -162,7 +162,7 @@
             <td colspan="{% if request.user.staff %}6{% else %}5{% endif %}"
                 class="no-data">
 
-                No feeding schedules found for this animal.
+                No feeding reports found for this animal.
 
             </td>
 
